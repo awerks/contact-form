@@ -142,7 +142,7 @@ function CalculateForm() {
               <div className="outline-cm-gray-500 hover:outline-cm-green-600 has-[:checked]:bg-cm-green-200 flex grow rounded-md outline transition-colors">
                 <label
                   htmlFor="support-request"
-                  className="flex w-full cursor-pointer items-center gap-x-3 px-4 py-1"
+                  className="flex w-full cursor-pointer items-center gap-x-3 px-4 py-3"
                 >
                   <input
                     type="radio"
