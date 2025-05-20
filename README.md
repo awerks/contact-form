@@ -34,7 +34,7 @@ Users should be able to:
 
 ### Links
 
-- Live Site URL: [deployed on Netflify](https://your-live-site-url.com)
+- Live Site URL: [deployed on Netflify](https://contact-form-inmentor.netlify.app/)
 
 ## My process
 
