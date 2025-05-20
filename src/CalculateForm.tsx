@@ -123,7 +123,7 @@ function CalculateForm() {
               Query type <span>*</span>
             </label>
             <div className="flex flex-col gap-4 md:flex-row">
-              <div className="outline-cm-gray-500 hover:outline-cm-green-600 flex grow cursor-pointer items-center gap-2 rounded-md px-4 py-2 outline transition-colors [&>input]:mr-1">
+              <div className="outline-cm-gray-500 hover:outline-cm-green-600 has-checked:bg-cm-green-200 flex grow cursor-pointer items-center gap-2 rounded-md px-4 py-2 outline [&>input]:mr-1">
                 <input
                   type="radio"
                   {...register("queryType", {
@@ -136,7 +136,7 @@ function CalculateForm() {
                   General enquiry
                 </label>
               </div>
-              <div className="outline-cm-gray-500 hover:outline-cm-green-600 flex grow cursor-pointer items-center gap-2 rounded-md px-4 py-2 outline transition-colors [&>input]:mr-1">
+              <div className="outline-cm-gray-500 hover:outline-cm-green-600 has-checked:bg-cm-green-200 flex grow cursor-pointer items-center gap-2 rounded-md px-4 py-2 outline transition-colors [&>input]:mr-1">
                 <input
                   type="radio"
                   {...register("queryType", {
