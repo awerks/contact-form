@@ -52,7 +52,7 @@ function CalculateForm() {
   return (
     <>
       <Toaster position="top-center" />
-      <section className="accent-cm-green-600 rounded-xl bg-white p-4">
+      <section className="accent-cm-green-600 rounded-xl bg-white p-4 max-md:mt-16">
         <form
           onSubmit={handleSubmit((data) => {
             setSuccess(true);
