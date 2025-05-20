@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
+import toast, { Toaster } from "react-hot-toast";
+import IconSuccessCheck from "../assets/images/icon-success-check.svg";
 
 interface CalculateFormValues {
   firstName: string;
@@ -14,32 +16,60 @@ function CalculateForm() {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<CalculateFormValues>();
   const [success, setSuccess] = useState(false);
 
-  if (success) {
-    return <h1>Success!</h1>;
-  }
+  useEffect(() => {
+    if (success) {
+      toast.custom(
+        (t) => (
+          <div
+            className={`${
+              t.visible ? "animate-enter" : "animate-leave"
+            } bg-cm-gray-900 space-y-2 rounded-lg p-4 text-white`}
+          >
+            <div className="flex items-center gap-2">
+              <img src={IconSuccessCheck} width="20" height="21"></img>
+              <h2 className="text-lg font-bold">Success</h2>
+            </div>
+            <p>Thanks for completing the form! We'll be in touch soon!</p>
+          </div>
+        ),
+        { duration: 2500 },
+      );
+      const timer = setTimeout(() => {
+        setSuccess(false);
+        reset();
+      }, 2500);
+      return () => {
+        clearTimeout(timer);
+      };
+    }
+  }, [success, reset]);
 
   return (
     <>
-      <section className="bg-white [&_label]:block">
+      <Toaster position="top-center" />
+      <section className="accent-cm-green-600 rounded-xl bg-white p-4">
         <form
           onSubmit={handleSubmit((data) => {
             setSuccess(true);
             console.log("Form submitted");
             console.log(JSON.stringify(data, null, 2));
           })}
-          className="flex flex-col gap-4 p-4"
+          className="space-y-5 p-4"
         >
-          <h1>Contact us</h1>
-          <div className="flex gap-4">
-            <div>
-              <label htmlFor="firstName">First name *</label>
+          <h1 className="mb-6 text-3xl font-bold">Contact Us</h1>
+          <div className="flex flex-col gap-4 md:flex-row">
+            <div className="space-y-2">
+              <label htmlFor="firstName">
+                First name <span>*</span>
+              </label>
               <input
                 {...register("firstName", {
-                  required: "First name is required",
+                  required: "This field is required",
                 })}
                 id="firstName"
                 type="text"
@@ -50,10 +80,14 @@ function CalculateForm() {
                 </p>
               )}
             </div>
-            <div>
-              <label htmlFor="lastName">Last name *</label>
+            <div className="space-y-2">
+              <label htmlFor="lastName">
+                Last name <span>*</span>
+              </label>
               <input
-                {...register("lastName", { required: "Last name is required" })}
+                {...register("lastName", {
+                  required: "This field is required",
+                })}
                 id="lastName"
                 type="text"
               ></input>
@@ -64,43 +98,80 @@ function CalculateForm() {
               )}
             </div>
           </div>
-          <label htmlFor="email">Email address *</label>
-          <input
-            {...register("email", { required: "Email is required" })}
-            id="email"
-            type="email"
-          />
-          {errors.email && (
-            <p className="text-sm text-red-500">{errors.email.message}</p>
-          )}
-          <label htmlFor="query-type">Query type</label>
-          <div className="flex gap-4">
+          <div className="space-y-2">
+            <label htmlFor="email">
+              Email address <span>*</span>
+            </label>
             <input
-              type="radio"
-              {...register("queryType", { required: "Query type is required" })}
-              id="general-enquiry"
-              value="general-enquiry"
+              {...register("email", {
+                required: "This field is required",
+                pattern: {
+                  value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                  message: "Please enter a valid email address",
+                },
+              })}
+              id="email"
+              type="text"
             />
-            <input
-              type="radio"
-              {...register("queryType", { required: "Query type is required" })}
-              id="support-request"
-              value="support-request"
-            />
+            {errors.email && (
+              <p className="text-sm text-red-500">{errors.email.message}</p>
+            )}
           </div>
-          {errors.queryType && (
-            <p className="text-sm text-red-500">{errors.queryType.message}</p>
-          )}
-          <label htmlFor="message">Message</label>
-          <textarea id="message"></textarea>
+
+          <div className="space-y-2">
+            <label htmlFor="query-type">
+              Query type <span>*</span>
+            </label>
+            <div className="flex flex-col gap-4 md:flex-row">
+              <div className="outline-cm-gray-500 hover:outline-cm-green-600 flex grow cursor-pointer items-center gap-2 rounded-md px-4 py-2 outline transition-colors [&>input]:mr-1">
+                <input
+                  type="radio"
+                  {...register("queryType", {
+                    required: "Please select a query type",
+                  })}
+                  id="general-enquiry"
+                  value="general-enquiry"
+                />
+                <label htmlFor="general-enquiry" className="inline!">
+                  General enquiry
+                </label>
+              </div>
+              <div className="outline-cm-gray-500 hover:outline-cm-green-600 flex grow cursor-pointer items-center gap-2 rounded-md px-4 py-2 outline transition-colors [&>input]:mr-1">
+                <input
+                  type="radio"
+                  {...register("queryType", {
+                    required: "Please select a query type",
+                  })}
+                  id="support-request"
+                  value="support-request"
+                />
+                <label htmlFor="support-request" className="inline!">
+                  Support request
+                </label>
+              </div>
+            </div>
+            {errors.queryType && (
+              <p className="text-sm text-red-500">{errors.queryType.message}</p>
+            )}
+          </div>
+          <div className="space-y-2">
+            <label htmlFor="message">
+              Message <span>*</span>
+            </label>
+            <textarea id="message" className="min-h-[7em]"></textarea>
+          </div>
           <div>
             <input
-              {...register("consent", { required: "Consent is required" })}
+              {...register("consent", {
+                required:
+                  "To submit this form, please consent to being contacted",
+              })}
               type="checkbox"
               id="consent"
+              className="mr-2"
             />
             <label htmlFor="consent" className="inline!">
-              I consent to being contacted by the team *
+              I consent to being contacted by the team <span>*</span>
             </label>
             {errors.consent && (
               <p className="text-sm text-red-500">{errors.consent.message}</p>
@@ -108,7 +179,7 @@ function CalculateForm() {
           </div>
           <button
             type="submit"
-            className="bg-cm-green-600 rounded px-4 py-2 text-white"
+            className="bg-cm-green-600 hover:bg-cm-gray-900 focus-visible:bg-cm-gray-900 mt-4 w-full cursor-pointer rounded-md px-4 py-2 text-white transition-colors"
           >
             Submit
           </button>

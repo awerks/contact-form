@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Karla:wght@400;600&display=swap");
 @import "tailwindcss";
 
 @theme {
@@ -6,16 +7,30 @@
   --color-cm-red: hsl(0, 66%, 54%);
   --color-cm-gray-500: hsl(186, 15%, 59%);
   --color-cm-gray-900: hsl(187, 24%, 22%);
-}
-@font-face {
-  font-family: "Karla", sans-serif;
-  font-weight: 400, 700;
-  font-style: normal;
-  src: url("/assets/fonts/Karla-Italic-VariableFont_wght.ttf")
-    format("truetype");
-  font-display: swap;
+  --animate-enter: enter 100ms ease-in-out forwards;
+  --animate-leave: leave 100ms ease-in-out forwards;
 }
 
+@keyframes enter {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes leave {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
 @layer base {
   body,
   html {
@@ -29,5 +44,19 @@
     background-color: var(--color-cm-green-200);
     display: grid;
     place-content: center;
+  }
+  label {
+    @apply block cursor-pointer;
+  }
+  label span {
+    @apply text-cm-green-600;
+  }
+  /* label {
+    margin-bottom: 0.5rem;
+  } */
+  input[type="text"],
+  input[type="email"],
+  textarea {
+    @apply outline-cm-gray-500 focus:outline-cm-green-600 w-full rounded-md px-2 py-2 outline focus:outline-2;
   }
 }
