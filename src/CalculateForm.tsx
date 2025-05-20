@@ -123,29 +123,36 @@ function CalculateForm() {
               Query type <span>*</span>
             </label>
             <div className="flex flex-col gap-4 md:flex-row">
-              <div className="outline-cm-gray-500 hover:outline-cm-green-600 has-checked:bg-cm-green-200 flex grow cursor-pointer items-center gap-2 rounded-md px-4 py-2 outline [&>input]:mr-1">
-                <input
-                  type="radio"
-                  {...register("queryType", {
-                    required: "Please select a query type",
-                  })}
-                  id="general-enquiry"
-                  value="general-enquiry"
-                />
-                <label htmlFor="general-enquiry" className="inline!">
+              <div className="outline-cm-gray-500 hover:outline-cm-green-600 has-[:checked]:bg-cm-green-200 flex grow rounded-md outline transition-colors">
+                <label
+                  htmlFor="general-enquiry"
+                  className="flex w-full cursor-pointer items-center gap-x-3 px-4 py-3"
+                >
+                  <input
+                    type="radio"
+                    {...register("queryType", {
+                      required: "Please select a query type",
+                    })}
+                    id="general-enquiry"
+                    value="general-enquiry"
+                  />
                   General enquiry
                 </label>
               </div>
-              <div className="outline-cm-gray-500 hover:outline-cm-green-600 has-checked:bg-cm-green-200 flex grow cursor-pointer items-center gap-2 rounded-md px-4 py-2 outline transition-colors [&>input]:mr-1">
-                <input
-                  type="radio"
-                  {...register("queryType", {
-                    required: "Please select a query type",
-                  })}
-                  id="support-request"
-                  value="support-request"
-                />
-                <label htmlFor="support-request" className="inline!">
+              <div className="outline-cm-gray-500 hover:outline-cm-green-600 has-[:checked]:bg-cm-green-200 flex grow rounded-md outline transition-colors">
+                <label
+                  htmlFor="support-request"
+                  className="flex w-full cursor-pointer items-center gap-x-3 px-4 py-1"
+                >
+                  <input
+                    type="radio"
+                    {...register("queryType", {
+                      required: "Please select a query type",
+                    })}
+                    id="support-request"
+                    value="support-request"
+                    className="accent-cm-green-600"
+                  />
                   Support request
                 </label>
               </div>
